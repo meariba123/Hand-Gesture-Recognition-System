@@ -1,0 +1,18 @@
+# Core ML & Deep Learning
+tensorflow>=2.20.0
+keras>=3.0.0
+
+# Image Processing
+opencv-python
+Pillow
+
+# Data Science
+numpy
+pandas
+scikit-learn
+matplotlib
+seaborn
+
+# Utilities
+jupyter
+notebook
