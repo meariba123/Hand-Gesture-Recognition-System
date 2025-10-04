@@ -16,7 +16,7 @@ early_stop=EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=Tr
 history = model.fit(
     train_data,
     validation_data=val_data,
-    epochs=20, #what is epochs?
+    epochs=20, #doing 20 complete passes so the model can learn and train the dataset
     callbacks=[early_stop]
 )
 
@@ -28,9 +28,9 @@ plt.plot(history.history['accuracy'], label="Train Acc")
 plt.plot(history.history["val_accuracy"], label="Val Acc")
 plt.xlabel("Epochs")
 plt.ylabel("Accuracy")
-plt.legend()
-plt.savefig("results/accuracy_curve.png")
-plt.show()
+plt.legend() #helps with visualisation
+plt.savefig("results/accuracy_curve.png") #saving the figure into this file
+plt.show() #shows the fgiure on display 
 
 #plot loss
 plt.plot(history.history["loss"], label="Train Acc")
