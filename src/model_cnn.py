@@ -1,3 +1,4 @@
+# week 2 - my CNN from scratch 
 from tensorflow.keras import layers, models
 
 #needs explaining 
