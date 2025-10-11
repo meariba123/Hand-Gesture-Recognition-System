@@ -59,6 +59,7 @@ plt.plot(history.history['accuracy'], label='Train Accuracy')
 plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
 plt.legend()
 plt.title("Accuracy Curve")
+plt.savefig("results/transfer_accuracy.png")
 plt.show()
 
 #plot loss
@@ -66,4 +67,5 @@ plt.plot(history.history['loss'], label='Train Loss')
 plt.plot(history.history['val_loss'], label='Validation Loss')
 plt.legend()
 plt.title("Loss Curve")
+plt.savefig("results/transfer_loss.png")
 plt.show()
