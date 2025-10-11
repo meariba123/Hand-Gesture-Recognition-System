@@ -3,14 +3,10 @@ from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras import layers, models
 
 def create_transfer_model(num_classes=4):
-    base_model=MobileNetV2(
-        input_shape=(128,128,3),
-        include_top=False,
-        weights="imagenet"
-    )
-    base_model.trainable=False
+    base_model = MobileNetV2(weights='imagenet', include_top=False, input_shape=(128, 128, 3))
+    base_model.trainable = False  # freeze pretrained layers
 
-    model = model.sSequential([
+    model = models.Sequential([
         base_model,
         layers.GlobalAveragePooling2D(),
         layers.Dense(128, activation='relu'),
@@ -18,10 +14,7 @@ def create_transfer_model(num_classes=4):
         layers.Dense(num_classes, activation='softmax')
     ])
 
-    model.compile(
-        optimizer='adam',
-        loss='catgorical_crossentropy',
-        metrics=['accuracy']
-    )
-
+    model.compile(optimizer='adam',
+                  loss='sparse_categorical_crossentropy',
+                  metrics=['accuracy'])
     return model
