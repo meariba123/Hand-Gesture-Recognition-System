@@ -1,4 +1,4 @@
-from tensorflow.keras.preprocessing.image import ImportDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def load_data_augmented(data_dir, img_size=(128, 128), batch_size=32):
     train_datagen = ImageDataGenerator(
@@ -13,7 +13,7 @@ def load_data_augmented(data_dir, img_size=(128, 128), batch_size=32):
         fill_mode='nearest'
     )
 
-    val_datagen = ImportDataGenerator(rescale=1./255)
+    val_datagen = ImageDataGenerator(rescale=1./255)
 
     train_data = train_datagen.flow_from_directory(
         f"{data_dir}/train",

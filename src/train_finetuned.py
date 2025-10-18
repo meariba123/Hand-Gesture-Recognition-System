@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 from tensorflow.keras.callbacks import EarlyStopping 
-from src.data_loader_augmented_v2 import load_data_augmented
-from src.model_transfer_finetuned import create_finetuned_model
+from data_loader_augmented_v2 import load_data_augmented
+from model_transfer_finetuned import create_finetuned_model
 
 #loading the dataset
 train_data, val_data = load_data_augmented("dataset")
