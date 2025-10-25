@@ -20,10 +20,10 @@ history = model.fit(
     callbacks=[early_stop]
 )
 
-#save model
+#saving model
 model.save("models/cnn_week2.h5")
 
-#plot accuracy
+#plotting accuracy
 plt.plot(history.history['accuracy'], label="Train Acc")
 plt.plot(history.history["val_accuracy"], label="Val Acc")
 plt.xlabel("Epochs")
@@ -32,11 +32,11 @@ plt.legend() #helps with visualisation
 plt.savefig("results/accuracy_curve.png") #saving the figure into this file
 plt.show() #shows the fgiure on display 
 
-#plot loss
+#plotting loss
 plt.plot(history.history["loss"], label="Train Acc")
 plt.plot(history.history["val_loss"], label="Val Loss")
 plt.xlabel("Epochs")
 plt.ylabel("Loss")
-plt.legend() #what is legend
+plt.legend() 
 plt.savefig("results/loss_curve.png")
 plt.show()
