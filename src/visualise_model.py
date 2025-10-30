@@ -9,7 +9,7 @@ from tensorflow.keras.models import Model
 model = tf.keras.models.load_model('models/mobilenet_finetuned_week4.h5')
 
 #this selects a sample image for visualisation 
-img_path = 'dataset/val/rock/rock_1.png' #??
+img_path = 'dataset/val/rock/rock_1.png' #for testing purposes.
 img = image.load_img(img_path, target_size=(128,128))
 img_array = image.img_to_array(img)
 img_array = np.expand_dims(img_array, axis=0) / 255.0
