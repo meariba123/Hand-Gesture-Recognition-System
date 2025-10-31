@@ -31,7 +31,7 @@ while True:
     #preprocess ROI to match model input
     roi_resized = cv2.resize(roi, (128,128))
     roi_normalised = roi_resized.astype('float') / 255.0 #prepares the image to match the trained model input
-    roi_expanded = np.expand.dims(roi_normalised, axis=0)
+    roi_expanded = np.expand_dims(roi_normalised, axis=0)
 
     #makes prediction
     prediction = model.predict(roi_expanded)
