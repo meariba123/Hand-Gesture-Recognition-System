@@ -78,7 +78,7 @@ img_original = cv2.imread(img_path)
 img_original = cv2.resize(img_original, (128, 128))
 
 #converts heatmap to colour
-heatmap = cv2.resize(heatmap.numpy(), (img_original.shape[1], img_original.shape[0]))
+heatmap = cv2.resize(heatmap, (img_original.shape[1], img_original.shape[0]))
 heatmap = np.uint8(255 * heatmap)
 heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
 
