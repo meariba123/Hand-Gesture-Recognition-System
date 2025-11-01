@@ -9,7 +9,7 @@ from tensorflow.keras.models import Model
 model = tf.keras.models.load_model('models/mobilenet_finetuned_week4.h5')
 
 #this selects a sample image for visualisation 
-img_path = 'dataset/val/rock/rock_1.png' #for testing purposes.
+img_path = 'dataset/val/rock/IMG_2132.jpg' #for testing purposes.
 img = image.load_img(img_path, target_size=(128,128))
 img_array = image.img_to_array(img)
 img_array = np.expand_dims(img_array, axis=0) / 255.0
@@ -19,17 +19,43 @@ preds = model.predict(img_array)
 predicted_class = np.argmax(preds[0])
 print("Predicted Class Index:", predicted_class)
 
-#identified the last convolutional layer in the model
-last_conv_layer_name = None
-for layer in reversed(model.layers):
-    if len(layer.output_shape) == 4: #the convolutional layer has 4D output
-        last_conv_layer_name = layer.name
-        break
 
-#create Grad-CAM model
+#forces the model to build by calling it once
+_ = model.predict(img_array)
+
+#identified the last convolutional layer in the model and finds the last Conv2D layer (even if it's nested)
+last_conv_layer = None
+for layer in model.layers:
+    if isinstance(layer, tf.keras.Model):  # e.g., MobileNet base
+        for sub_layer in layer.layers:
+            if isinstance(sub_layer, tf.keras.layers.Conv2D):
+                last_conv_layer = sub_layer
+    elif isinstance(layer, tf.keras.layers.Conv2D):
+        last_conv_layer = layer
+
+if last_conv_layer is None:
+    raise ValueError("No Conv2D layer found in the model. Grad-CAM requires a conv layer.")
+
+print("Using last conv layer:", last_conv_layer.name)
+
+#handles sequential model input/output correctly
+if isinstance(model, tf.keras.Sequential):
+    grad_model = Model(
+        inputs=model.input,  # works for Sequential too after prediction call
+        outputs=[last_conv_layer.output, model.output]
+    )
+else:
+    grad_model = Model(
+        inputs=model.inputs,
+        outputs=[last_conv_layer.output, model.output]
+    )
+
+
+
+#builds a model that outputs conv maps + model prediction
 grad_model = Model(
     inputs=model.inputs,
-    outputs=[model.get_layer(last_conv_layer_name).output, model.output]
+    outputs=[last_conv_layer.output, model.output]
 )
 
 #computes gradients
