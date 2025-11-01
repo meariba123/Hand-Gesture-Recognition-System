@@ -45,18 +45,11 @@ if isinstance(model, tf.keras.Sequential):
         outputs=[last_conv_layer.output, model.output]
     )
 else:
+    #builds a model that outputs conv maps + model prediction
     grad_model = Model(
         inputs=model.inputs,
         outputs=[last_conv_layer.output, model.output]
     )
-
-
-
-#builds a model that outputs conv maps + model prediction
-grad_model = Model(
-    inputs=model.inputs,
-    outputs=[last_conv_layer.output, model.output]
-)
 
 #computes gradients
 with tf.GradientTape() as tape:
