@@ -2,6 +2,7 @@ import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 import cv2 
+import os
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.models import Model 
 
@@ -13,7 +14,6 @@ img_path = 'dataset/val/rock/IMG_2132.jpg' #for testing purposes.
 img = image.load_img(img_path, target_size=(128,128))
 img_array = image.img_to_array(img)
 img_array = np.expand_dims(img_array, axis=0) / 255.0
-
 
 
 #forces the model to build by calling it once
@@ -97,7 +97,10 @@ plt.title("Grad-CAM Heatmap")
 plt.imshow(cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB))
 plt.axis("off")
 
+#saves Grad-CAM result
+output_path = os.path.join("results", "gradcam_output.jpg")
+cv2.imwrite(output_path, superimposed_img)
+print(f"Grad-CAM image saved as: {output_path}")
+
 plt.tight_layout()
-cv2.imwrite('gradcam_output.jpg', superimposed_img)
-print("Grad-CAM image saved as gradcam_output.jpg")
 plt.show()
