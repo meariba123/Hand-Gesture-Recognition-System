@@ -98,4 +98,6 @@ plt.imshow(cv2.cvtColor(superimposed_img, cv2.COLOR_BGR2RGB))
 plt.axis("off")
 
 plt.tight_layout()
+cv2.imwrite('gradcam_output.jpg', superimposed_img)
+print("Grad-CAM image saved as gradcam_output.jpg")
 plt.show()
