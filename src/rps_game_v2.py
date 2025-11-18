@@ -17,7 +17,8 @@ user_score = 0
 ai_score = 0
 WINNING_SCORE = 5
 
-print("Rock–Paper–Scissors AI Game starting... First to 5 wins!")
+print("Rock–Paper–Scissors AI Game (Version 2 - Improved)")
+print("Includes delay, audio countdown, scoring system, and testing logs.")
 print("Press 'q' to quit.")
 
 def get_winner(user, ai):
@@ -35,17 +36,19 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
         ret, frame = cap.read()
         frame = cv2.flip(frame, 1)
         cv2.putText(frame, i, (150, 200), cv2.FONT_HERSHEY_SIMPLEX, 2, (0,255,255), 4)
-        cv2.imshow("RPS AI Game", frame)
+        cv2.imshow("RPS AI Game - V2", frame)
 
-        if i in ["3", "2", "1"]:  # beep sound
-            winsound.Beep(1000, 300)  # 1000 Hz for 0.3s
+        if i in ["3", "2", "1"]:  
+            winsound.Beep(1000, 300)
         elif i == "GO!":
-            winsound.Beep(1500, 500)  # stronger sound for start
+            winsound.Beep(1500, 500)
 
-        if cv2.waitKey(1000) & 0xFF == ord('q'):
-            break
+        cv2.waitKey(1000)
 
-    # Capture final frame for prediction
+    # Start of testing
+    start_time = time.time()
+
+    # Capture frame
     ret, frame = cap.read()
     frame = cv2.flip(frame, 1)
     roi = frame[100:350, 100:350]
@@ -63,26 +66,28 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
     ai_choice = random.choice(['rock', 'paper', 'scissors'])
     result = get_winner(user_choice, ai_choice)
 
+    # End of test timer
+    round_time = time.time() - start_time
+    print(f"[TESTING] Round processing time: {round_time:.2f}s | User={user_choice}, AI={ai_choice}, Result={result}")
+
     if result == "You Win!":
         user_score += 1
     elif result == "AI Wins!":
         ai_score += 1
 
-    # Display game result
     cv2.putText(frame, f"You: {user_choice} ({confidence:.1f}%)", (50, 50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
     cv2.putText(frame, f"AI: {ai_choice}", (50, 100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
     cv2.putText(frame, f"Result: {result}", (50, 150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
     cv2.putText(frame, f"Score - You {user_score} : {ai_score} AI", (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,255), 2)
     cv2.rectangle(frame, (100, 100), (350, 350), (255, 0, 0), 2)
 
-    cv2.imshow("RPS AI Game", frame)
+    cv2.imshow("RPS AI Game - V2", frame)
 
-    # Delay between rounds
     key = cv2.waitKey(2500)
     if key & 0xFF == ord('q'):
         break
 
-# Final winner
+# Final message
 ret, frame = cap.read()
 frame = cv2.flip(frame, 1)
 if user_score == WINNING_SCORE:
@@ -91,7 +96,7 @@ else:
     final_message = "AI Won the Game 🤖 Better Luck Next Time"
 
 cv2.putText(frame, final_message, (50, 200), cv2.FONT_HERSHEY_SIMPLEX, 1.2, (0,255,0), 3)
-cv2.imshow("RPS AI Game", frame)
+cv2.imshow("RPS AI Game - V2", frame)
 cv2.waitKey(4000)
 
 cap.release()
