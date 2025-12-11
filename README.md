@@ -85,6 +85,10 @@ python src/rps_game_v2.py
 
 ## AI transparency scale declaration statement
 
-Artificial Intelligence (AI)
-has not been used for any
-part of the activity.
+Artificial Intelligence (AI) has not been used for any part of the activity.
+
+---
+
+## Google Drive link to dataset
+
+https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd?usp=drive_link
