@@ -26,7 +26,7 @@ The dataset was custom-captured and contains four gesture classes:
 | Scissors | Two fingers |
 | None | No valid gesture detected |
 
-🔗 **Dataset Link:** *(Will be provided here)*
+**Dataset Link:** *https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd?usp=drive_link*
 
 ---
 
@@ -89,6 +89,3 @@ Artificial Intelligence (AI) has not been used for any part of the activity.
 
 ---
 
-## Google Drive link to dataset
-
-https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd?usp=drive_link
