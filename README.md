@@ -81,4 +81,10 @@ Testing outputs are automatically saved in /results/ when running:
 
 python src/rps_game_v2.py
 
+---
 
+## AI transparency scale declaration statement
+
+Artificial Intelligence (AI)
+has not been used for any
+part of the activity.
