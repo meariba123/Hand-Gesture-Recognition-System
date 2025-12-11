@@ -8,42 +8,39 @@ import winsound
 import os
 import threading
 
-# =========================
-#      CONFIG SECTION
-# =========================
 MODEL_PATH = "models/mobilenet_finetuned_week4.h5"
 RESULTS_DIR = "results"
 WINNING_SCORE = 5
 labels = ['none', 'paper', 'rock', 'scissors']
 ai_choices = ['rock', 'paper', 'scissors']
 
-# Create results folder
+#creates results folder
 if not os.path.exists(RESULTS_DIR):
     os.makedirs(RESULTS_DIR)
 
-# Load model
+#loads model
 model = load_model(MODEL_PATH)
 
-# Webcam
+#webcam
 cap = cv2.VideoCapture(0)
 
-# Score tracking
+#score tracking
 user_score = 0
 ai_score = 0
 
-# For evaluation
+#for evaluation
 true_labels = []
 predicted_labels = []
 latency_times = []
 
-print("=== Rock–Paper–Scissors AI Game v2 Starting... ===")
+print("Rock–Paper–Scissors AI Game v2 Starting... ")
 print("➡ First to 5 wins! Press 'q' to quit.")
 
-# Non-blocking beep
+#non-blocking beep
 def beep(frequency, duration):
     threading.Thread(target=winsound.Beep, args=(frequency, duration), daemon=True).start()
 
-# Determine winner
+#determines winner
 def get_winner(user, ai):
     if user == ai:
         return "Draw"
@@ -52,9 +49,8 @@ def get_winner(user, ai):
     else:
         return "AI Wins!"
 
-# ======================
-#      GAME LOOP
-# ======================
+
+#game loop
 countdown_messages = ["Get ready...", "3", "2", "1", "GO!"]
 COUNTDOWN_INTERVAL = 1.0  # seconds
 
@@ -71,10 +67,10 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
         ret, frame = cap.read()
         frame = cv2.flip(frame, 1)
 
-        # Draw ROI
+        #draws ROI
         cv2.rectangle(frame, (100,100), (350,350), (255,0,0), 2)
 
-        # Update countdown every interval
+        #updates countdown every interval
         if countdown_index < len(countdown_messages) and time.time() - countdown_time >= COUNTDOWN_INTERVAL:
             msg = countdown_messages[countdown_index]
             if msg in ["3", "2", "1"]:
@@ -82,7 +78,7 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
             elif msg == "GO!":
                 beep(1500, 500)
 
-                # Capture ROI and predict
+                #captures ROI and predict
                 start_time = time.time()
                 roi = frame[100:350, 100:350]
 
@@ -96,17 +92,17 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
                 latency = time.time() - start_time
                 latency_times.append(latency)
 
-                # AI choice and result
+                #AI choice and result
                 ai_choice = random.choice(ai_choices)
                 result = get_winner(user_choice, ai_choice)
 
-                # Update scores
+                #updates scores
                 if result == "You Win!":
                     user_score += 1
                 elif result == "AI Wins!":
                     ai_score += 1
 
-                # Testing metrics (model vs user)
+                #testing metrics (model vs user)
                 if user_choice != "none":
                     true_labels.append(user_choice)
                     predicted_labels.append(labels[np.argmax(prediction)])
@@ -114,12 +110,12 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
             countdown_index += 1
             countdown_time = time.time()
 
-        # Display countdown
+        #displays countdown for users 
         if countdown_index > 0:
             display_msg = countdown_messages[countdown_index-1]
             cv2.putText(frame, display_msg, (150,200), cv2.FONT_HERSHEY_SIMPLEX, 2, (0,255,255), 4)
 
-        # Display scores & info
+        #displays scores & info
         cv2.putText(frame, f"You: {user_choice} ({confidence:.1f}%)", (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
         cv2.putText(frame, f"AI: {ai_choice}", (50,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
         cv2.putText(frame, f"Result: {result}", (50,150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)
@@ -129,41 +125,39 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
 
         cv2.imshow("RPS AI Game v2", frame)
 
-        # Move to next round 1 second after GO!
+        #moves to next round 1 second after GO!
         if countdown_index >= len(countdown_messages) and time.time() - countdown_time >= 1.0:
             round_done = True
 
         if cv2.waitKey(1) & 0xFF == ord('q'):
-            user_score = WINNING_SCORE  # force exit
+            user_score = WINNING_SCORE  #force exit
             break
 
-# ======================
-#      FINAL RESULTS
-# ======================
+#final results
 if true_labels:
-    print("\n=== Saving Evaluation Results ===")
+    print("\nSaving Evaluation Results ")
     
-    # Confusion Matrix
+    #confusion Matrix
     cm = confusion_matrix(true_labels, predicted_labels, labels=ai_choices)
     with open(f"{RESULTS_DIR}/confusion_matrix.txt", "w") as f:
         f.write(str(cm))
-    print("[✔] Confusion Matrix saved")
+    print("Confusion Matrix saved")
 
-    # Classification Report
+    #classification Report
     report = classification_report(true_labels, predicted_labels, labels=ai_choices)
     with open(f"{RESULTS_DIR}/classification_report.txt", "w") as f:
         f.write(report)
     print("[✔] Classification Report saved")
 
-    # Average latency
+    #average latency
     avg_latency = sum(latency_times) / len(latency_times)
     with open(f"{RESULTS_DIR}/latency_analysis.txt", "w") as f:
         f.write(f"Average Real-time Prediction Latency: {avg_latency*1000:.2f}ms\n")
-    print("[✔] Latency Analysis saved")
+    print("Latency Analysis saved")
 else:
     print("Not enough valid predictions for testing metrics.")
 
-# Final Winner Display
+#final winner display
 ret, frame = cap.read()
 frame = cv2.flip(frame, 1)
 if user_score == WINNING_SCORE:
@@ -177,4 +171,4 @@ cv2.waitKey(4000)
 
 cap.release()
 cv2.destroyAllWindows()
-print("\n=== Run Complete ===")
+print("\n Run Complete ")
