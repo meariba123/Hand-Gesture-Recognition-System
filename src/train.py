@@ -6,8 +6,12 @@ from model_cnn import create_cnn
 #load dataset
 train_data, val_data = load_data("dataset")
 
+
+print("Classes found:", train_data.class_indices)
+print("Number of classes:", train_data.num_classes)
+
 #build model
-model=create_cnn(num_classes=3) #set to 3 at the moment as there is no data in "None"
+model=create_cnn(num_classes=4) 
 
 #early stopping (what does early stopping mean)
 early_stop=EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)

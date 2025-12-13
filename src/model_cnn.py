@@ -2,7 +2,7 @@
 from tensorflow.keras import layers, models
 
 #needs explaining 
-def create_cnn(num_classes=3): #only 3 for now because "None" has no data
+def create_cnn(num_classes=4): 
     model = models.Sequential([ #layers are stacked after one another 
         layers.Conv2D(32, (3,3), activation="relu", input_shape=(128,128,3)), #number of filters are 32,3,3 a small 
         layers.MaxPooling2D((2,2)), #pooling reduces image size by taking max value line in every 2x2 area
