@@ -36,11 +36,41 @@ print(report)
 #plotting confusion matrix
 cm = confusion_matrix(true_classes, predicted_classes)
 
-plt.figure(figsize=(7,6))
-sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-            xticklabels=class_labels, yticklabels=class_labels)
+plt.figure(figsize=(7, 6))
+sns.heatmap(
+    cm,
+    annot=True,
+    fmt='d',
+    cmap='Blues',
+    xticklabels=class_labels,
+    yticklabels=class_labels
+)
 plt.title("Confusion Matrix - Fine-tuned Model (Week 5)")
 plt.xlabel("Predicted")
 plt.ylabel("True")
 plt.savefig("results/confusion_matrix_week5.png")
 plt.show()
+
+
+#per-class accuracy - shows how well each gesture is recognised
+class_accuracy = cm.diagonal() / cm.sum(axis=1)
+
+print("\nPer-Class Accuracy:")
+for label, acc in zip(class_labels, class_accuracy):
+    print(f"{label}: {acc:.2f}")
+
+#explicit misclassification counts - helps identify which classes are confused
+#https://www.enki.com/post/what-does-enumerate-mean-in-python#:~:text=The%20enumerate()%20function%20is,need%20to%20manually%20track%20indexes.
+print("\nMisclassification Analysis:")
+for i, true_label in enumerate(class_labels):
+    for j, pred_label in enumerate(class_labels):
+        if i != j and cm[i, j] > 0:
+            print(f"{true_label} misclassified as {pred_label}: {cm[i, j]} times")
+
+
+#confidence analysis (model uncertainty) - used to justify improvement strategies
+confidence_scores = np.max(predictions, axis=1)
+
+print("\nPrediction Confidence Analysis:")
+print("Average confidence:", np.mean(confidence_scores))
+print("Lowest confidence:", np.min(confidence_scores))
