@@ -34,7 +34,7 @@ The dataset was custom-captured and contains four gesture classes:
 
 ### Clone project directory
 
-```bash
+```bash 
 git clone <https://github.com/meariba123/Hand-Gesture-Recognition-System.git>
 cd HandGestureProject
 ```
