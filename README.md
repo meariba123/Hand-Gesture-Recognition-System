@@ -85,7 +85,10 @@ python src/rps_game_v2.py
 
 ## AI transparency scale declaration statement
 
-Artificial Intelligence (AI) has not been used for any part of the activity.
+AITS Level: 1 – No AI
+
+Artificial Intelligence (AI) has not been used to generate or author the submitted code, documentation, or experimental results.
+All implementation, experimentation, evaluation, and analysis were carried out by the me.
 
 ---
 
