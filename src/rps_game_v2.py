@@ -7,12 +7,20 @@ from sklearn.metrics import confusion_matrix, classification_report
 import winsound
 import os
 import threading
+from collections import Counter
+
 
 MODEL_PATH = "models/mobilenet_finetuned_week4.h5"
 RESULTS_DIR = "results"
 WINNING_SCORE = 5
 labels = ['none', 'paper', 'rock', 'scissors']
 ai_choices = ['rock', 'paper', 'scissors']
+
+CONFIDENCE_THRESHOLD = 60
+
+user_score = 0
+ai_score = 0
+human_history = []
 
 #creates results folder
 if not os.path.exists(RESULTS_DIR):
@@ -87,13 +95,39 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
                 roi_expanded = np.expand_dims(roi_normalised, axis=0)
 
                 prediction = model.predict(roi_expanded)
-                user_choice = labels[np.argmax(prediction)]
+                pred_index = np.argmax(prediction)
+                confidence = prediction[0][pred_index] * 100
+
+                if confidence < CONFIDENCE_THRESHOLD:
+                    user_choice = "none"
+                else:
+                    user_choice = labels[pred_index]
+
                 confidence = np.max(prediction) * 100
                 latency = time.time() - start_time
                 latency_times.append(latency)
 
                 #AI choice and result
-                ai_choice = random.choice(ai_choices)
+                #stores valid human moves
+                if user_choice in ai_choices:
+                    human_history.append(user_choice)
+
+                #ssmart AI decision based on last 5 moves
+                if len(human_history) >= 3:
+                    recent_moves = human_history[-5:]
+                    most_common = Counter(recent_moves).most_common(1)[0][0]
+
+                    #AI plays the counter move
+                    if most_common == "rock":
+                        ai_choice = "paper"
+                    elif most_common == "paper":
+                        ai_choice = "scissors"
+                    else:
+                        ai_choice = "rock"
+                else:
+                    ai_choice = random.choice(ai_choices)
+
+                #determine round winner
                 result = get_winner(user_choice, ai_choice)
 
                 #updates scores

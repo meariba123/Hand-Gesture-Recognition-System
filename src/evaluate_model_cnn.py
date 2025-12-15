@@ -7,9 +7,7 @@ from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 #loading the trained model
-model = load_model('models/mobilenet_finetuned_week4.h5')
-
-print("Total parameters (Transfer Model):", model.count_params())
+model = load_model('models/cnn_week2.h5')
 
 #loading the validation dataset
 data_dir = 'dataset'
@@ -29,9 +27,8 @@ start = time.time()
 predictions = model.predict(val_data)
 end = time.time()
 
-print("Trained Model inference time (seconds):", end - start)
+print("CNN inference time (seconds):", end - start)
 print("Average time per image:", (end - start) / val_data.samples)
-
 
 #predictions on the validation data
 predictions = model.predict(val_data)
@@ -56,10 +53,10 @@ sns.heatmap(
     xticklabels=class_labels,
     yticklabels=class_labels
 )
-plt.title("Confusion Matrix - Fine-tuned Model (Week 5)")
+plt.title("Confusion Matrix - CNN Model (Week 2)")
 plt.xlabel("Predicted")
 plt.ylabel("True")
-plt.savefig("results/confusion_matrix_week5.png")
+plt.savefig("results/confusion_matrix_cnn.png")
 plt.show()
 
 
