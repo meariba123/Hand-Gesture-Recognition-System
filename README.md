@@ -46,55 +46,55 @@ https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd
 ## File Organisation
 
 ```text
-├── dataset/
-│   ├── train/
-│   ├── val/
+├── dataset/                         #custom hand gesture image dataset
+│   ├── train/                       #training images (Rock, Paper, Scissors, None)
+│   ├── val/                         #validation images
 
-├── models/
-│   ├── cnn_week2.h5
-│   └── mobilenet_finetuned_week4.h5
+├── models/                          #saved trained models
+│   ├── cnn_week2.h5                 #CNN model trained from scratch
+│   └── mobilenet_finetuned_week4.h5 #fine-tuned MobileNetV2 model
 
-│
-├── results/
-│   ├── accuracy_curve_cnn.png
-│   ├── accuracy_curve_finetuned.png 
-│   ├── accuracy_curve_week2.png 
-│   ├── classification_report.txt
-│   ├── confusion_matrix_cnn.png
-│   ├── confusion_matrix_week5.png
-│   ├── confusion_matrix.txt
-│   ├── gradcam_output.jpg
-│   ├── latency_analysis.txt
-│   ├── loss_curve_cnn.png
-│   ├── loss_curve_finetuned.png
-│   ├── loss_curve_week2.png
-│   ├── training_log_cnn.csv
-│   ├── training_log_finetuned.csv
-│   ├── training_log_transfer.csv
-│   ├── transfer_accuracy_week3.png
-│   ├── transfer_accuracy.png
-│   ├── transfer_loss_week3.ong
-│   ├── transfer_loss.png
+├── results/                         #training outputs, evaluation metrics & visualisations
+│   ├── accuracy_curve_cnn.png       #CNN training vs validation accuracy
+│   ├── accuracy_curve_finetuned.png   #fine-tuned model accuracy curve
+│   ├── accuracy_curve_week2.png     #early CNN experiment accuracy
+│   ├── classification_report.txt    #precision, recall, F1-score report
+│   ├── confusion_matrix_cnn.png     #CNN confusion matrix
+│   ├── confusion_matrix_week5.png    #final model confusion matrix
+│   ├── confusion_matrix.txt         #raw confusion matrix values
+│   ├── gradcam_output.jpg           #Grad-CAM explainability visualisation
+│   ├── latency_analysis.txt         #Real-time inference latency analysis
+│   ├── loss_curve_cnn.png           #CNN training vs validation loss
+│   ├── loss_curve_finetuned.png     #fine-tuned model loss curve
+│   ├── loss_curve_week2.png         #early CNN loss curve
+│   ├── training_log_cnn.csv         #CNN training log (epoch, accuracy, loss)
+│   ├── training_log_finetuned.csv   #fine-tuned MobileNetV2 training log
+│   ├── training_log_transfer.csv    #transfer learning (frozen base) training log
+│   ├── transfer_accuracy_week3.png  #transfer learning accuracy curve
+│   ├── transfer_accuracy.png        #final transfer learning accuracy plot
+│   ├── transfer_loss_week3.png      #transfer learning loss curve
+│   └── transfer_loss.png            #final transfer learning loss plot
 
-├── src/
-|   ├── app_realtime.py            # Real-time webcam inference
-|   ├── data_loader_augmented_v2.py
-|   ├── data_loader_augmented.py
-|   ├── data_loader.py
-|   ├── evaluate_model_cnn.py
-|   ├── evaluate_model.py
-|   ├── model_cnn.py
-|   ├── model_transfer_finetuned.py
-|   ├── model_transfer.py
-│   ├── rps_game_v1.py             # Basic RPS gameplay
-│   ├── rps_game_v2.py             # Smart AI gameplay + evaluation
-│   ├── train_transfer.py          # Transfer learning (MobileNetV2 frozen)
-│   ├── train_finetuned.py         # Fine-tuned MobileNetV2
-│   ├── train.py                   # CNN model training (from scratch)
-│   └── visualise_model.py         # Grad-CAM explainability
-│
-└── README.md
-└── requirements.txt
+├── src/                             #source code
+│   ├── app_realtime.py              #real-time webcam gesture recognition
+│   ├── data_loader.py               #basic dataset loading and preprocessing
+│   ├── data_loader_augmented.py     #dataset loading with data augmentation
+│   ├── data_loader_augmented_v2.py  #enhanced augmentation pipeline
+│   ├── evaluate_model.py            #model evaluation (metrics & confusion matrix)
+│   ├── evaluate_model_cnn.py        #CNN-specific evaluation script
+│   ├── model_cnn.py                 #CNN architecture definition
+│   ├── model_transfer.py            #MobileNetV2 transfer learning model
+│   ├── model_transfer_finetuned.py  #fine-tuned MobileNetV2 architecture
+│   ├── rps_game_v1.py               #basic Rock–Paper–Scissors gameplay
+│   ├── rps_game_v2.py               #smart AI gameplay + testing + result saving
+│   ├── train.py                     #CNN training (from scratch)
+│   ├── train_transfer.py            #transfer learning (MobileNetV2 frozen)
+│   ├── train_finetuned.py           #fine-tuned MobileNetV2 training
+│   └── visualise_model.py           #Grad-CAM explainability visualisation
+
+├── README.md                        #project documentation
+└── requirements.txt                 #python dependencies
+
 ```
 
 
