@@ -3,8 +3,9 @@ from tensorflow.keras import layers, models
 from tensorflow.keras.preprocessing import image_dataset_from_directory
 from tensorflow.keras.applications import MobileNetV2
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.callbacks import EarlyStopping, CSVLogger
 import matplotlib.pyplot as plt
+
 
 #loading the dataset
 train_data = image_dataset_from_directory(
@@ -46,12 +47,17 @@ model.compile(optimizer="adam",
 early_stop = EarlyStopping(monitor='val_loss', patience=3, restore_best_weights=True)
 
 
+csv_logger = CSVLogger(
+    "results/training_log_transfer.csv",
+    append=False
+)
+
 #training the model
 history = model.fit(
     train_data,
     validation_data=val_data,
     epochs=20,
-    callbacks=[early_stop]
+    callbacks=[early_stop, csv_logger]
 )
 
 #plot accuracy
