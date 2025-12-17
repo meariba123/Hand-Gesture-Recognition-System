@@ -35,7 +35,7 @@ print("Average time per image:", (end - start) / val_data.samples)
 
 #predictions on the validation data
 predictions = model.predict(val_data)
-predicted_classes = np.argmax(predictions, axis=1) #https://www.analyticsvidhya.com/blog/2023/12/all-you-need-to-know-about-numpys-argmax-function/
+predicted_classes = np.argmax(predictions, axis=1) #reference: https://www.analyticsvidhya.com/blog/2023/12/all-you-need-to-know-about-numpys-argmax-function/
 true_classes = val_data.classes
 class_labels = list(val_data.class_indices.keys()) #typo on indicies -  should be indices
 

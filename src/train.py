@@ -4,7 +4,6 @@ from data_loader import load_data
 from model_cnn import create_cnn
 
 
-
 #load dataset
 train_data, val_data = load_data("dataset")
 

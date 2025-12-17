@@ -78,7 +78,7 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
         #draws ROI
         cv2.rectangle(frame, (100,100), (350,350), (255,0,0), 2)
 
-        #updates countdown every interval
+        #updates countdown every interval - reference: https://stackoverflow.com/questions/23190439/creating-a-count-down-timer-in-python-opencv
         if countdown_index < len(countdown_messages) and time.time() - countdown_time >= COUNTDOWN_INTERVAL:
             msg = countdown_messages[countdown_index]
             if msg in ["3", "2", "1"]:
@@ -112,7 +112,7 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
                 if user_choice in ai_choices:
                     human_history.append(user_choice)
 
-                #ssmart AI decision based on last 5 moves
+                #smart AI decision based on last 5 moves
                 if len(human_history) >= 3:
                     recent_moves = human_history[-5:]
                     most_common = Counter(recent_moves).most_common(1)[0][0]
@@ -149,7 +149,7 @@ while user_score < WINNING_SCORE and ai_score < WINNING_SCORE:
             display_msg = countdown_messages[countdown_index-1]
             cv2.putText(frame, display_msg, (150,200), cv2.FONT_HERSHEY_SIMPLEX, 2, (0,255,255), 4)
 
-        #displays scores & info
+        #displays scores & info - references: https://www.geeksforgeeks.org/python/python-opencv-cv2-puttext-method/
         cv2.putText(frame, f"You: {user_choice} ({confidence:.1f}%)", (50,50), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
         cv2.putText(frame, f"AI: {ai_choice}", (50,100), cv2.FONT_HERSHEY_SIMPLEX, 1, (255,255,255), 2)
         cv2.putText(frame, f"Result: {result}", (50,150), cv2.FONT_HERSHEY_SIMPLEX, 1, (0,255,0), 2)

@@ -19,6 +19,7 @@ img_array = np.expand_dims(img_array, axis=0) / 255.0
 #forces the model to build by calling it once
 _ = model.predict(img_array)
 
+#references: https://www.tensorflow.org/guide/keras/sequential_model
 if isinstance(model, tf.keras.Sequential):
     #finds the first nested Model layer (e.g., MobileNet)
     for layer in model.layers:
