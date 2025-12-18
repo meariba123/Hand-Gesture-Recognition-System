@@ -1,1 +1,1 @@
-Average Real-time Prediction Latency: 210.47ms
+Average Real-time Prediction Latency: 2050.22ms
