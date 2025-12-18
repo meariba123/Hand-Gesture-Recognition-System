@@ -105,8 +105,12 @@ https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd
 ### Clone project directory
 
 ```bash 
-git clone https://github.com/meariba123/Hand-Gesture-Recognition-System.git
-cd 33011163_Ariba
+download the file
+unzip the file
+and you get all the files needed 
+ 
+folder:
+33011163_Ariba 
 ```
 ---
 
