@@ -217,6 +217,12 @@ python src/rps_game_v2.py
 
 ---
 
+## Video Recording Link
+
+https://shu.cloud.panopto.eu/Panopto/Pages/Viewer.aspx?id=7be2f555-1d74-4068-9031-b3b700b24008
+
+---
+
 ## AI transparency scale declaration statement
 
 AITS Level: 1 – No AI
