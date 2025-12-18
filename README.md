@@ -38,8 +38,32 @@ The dataset was **entirely self-created** using a webcam and contains four gestu
 - Noise and background variation added for robustness
 - Images resized to a consistent resolution
 
-📂 **Dataset Access (Google Drive):**  
+**Important – Dataset Access & Setup**
+
+Due to file size limitations, the full dataset is not included directly in this repository.
+
+Dataset Download (Google Drive):
 https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd
+
+How to set up the dataset:
+
+Download the dataset/ folder from the Google Drive link above.
+
+Copy the entire dataset folder into the root project directory:
+
+```text
+33011163_Ariba/
+├── dataset/
+│   ├── train/
+│   └── val/
+├── src/
+├── models/
+├── results/
+├── README.md
+└── requirements.txt
+```
+
+Ensure the folder structure matches exactly as shown above before running any training or evaluation scripts.
 
 ---
 
