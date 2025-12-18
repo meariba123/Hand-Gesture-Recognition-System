@@ -106,7 +106,7 @@ https://drive.google.com/drive/folders/1ireN1yHqNZSDfON9oSGoJJdDdz0_6iPd
 
 ```bash 
 git clone https://github.com/meariba123/Hand-Gesture-Recognition-System.git
-cd Hand-Gesture-Recognition-System
+cd 33011163_Ariba
 ```
 ---
 
